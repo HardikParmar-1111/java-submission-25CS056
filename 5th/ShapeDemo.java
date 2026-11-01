@@ -50,14 +50,14 @@ public class ShapeDemo{
         for(Shape s: shapes){
             total += s.area();
             System.out.println("Area: " + s.area());
+            System.out.println("Running Total: " + total);
             if(largest < s.area()){
                 largest = s.area();
                 label = s.getClass().getSimpleName();
             }
         }
-        double largestArea = largest;
         System.out.println("Total Area: " + total);
-        System.out.println("Largest Area: " + largestArea + " of shape " + label);
+        System.out.println("Largest Area: " + largest + " of shape " + label);
         
     }
 }

@@ -49,11 +49,15 @@ class PayRoll{
         employees[1] = new PartTime("Bob", 2, 80, 20);
         employees[2] = new Intern("Charlie", 3, 1000);
 
+        double total = 0;
         for(Employee emp : employees){
-            System.out.println(emp.name + " (ID: " + emp.id + ") - Monthly Salary: $" + emp.monthlySalary());
+            double salary = emp.monthlySalary();
+            total += salary;
+            System.out.println(emp.name + " (ID: " + emp.id + ") - Monthly Salary: $" + salary);
             if (emp instanceof Intern) {
-                System.out.print("Interns don't have a monthly salary. Stipend is: $" + ((Intern) emp).stipend);
+                System.out.println("Intern stipend: $" + ((Intern) emp).stipend);
             }
         }
+        System.out.println("Total Salary: $" + total);
     }
 }
