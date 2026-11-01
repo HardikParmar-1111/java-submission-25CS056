@@ -10,12 +10,16 @@ public class PasswordChecker {
        return password.matches(".*[A-Z].*");
     }
 
+    public static boolean hasLowerCase(String password) {
+        return password.matches(".*[a-z].*");
+    }
+
     public static boolean hasDigit(String password) {
         return password.matches(".*[0-9].*");
     }
 
     public static boolean hasSpecialChar(String password) {
-        return password.matches(".*[@#$*()].*");
+        return password.matches(".*[^A-Za-z0-9].*");
     }
 
     public static String getStrength(String password) {
@@ -26,6 +30,9 @@ public class PasswordChecker {
         if (hasUpperCase(password)) {
             count++;
         }
+        if (hasLowerCase(password)) {
+            count++;
+        }
         if (hasDigit(password)) {
             count++;
         }
@@ -34,9 +41,8 @@ public class PasswordChecker {
         }
         String st = switch(count){
             case 0,1 -> "weak";
-            case 2,3 -> "medium";
-            case 4 -> "strong";
-            default -> "invalid";
+            case 2,3,4 -> "medium";
+            default -> "strong";
         };
         return st;
     }

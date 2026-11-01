@@ -1,15 +1,22 @@
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 class ChatlogFilter {
-    public static String[] splitLine(String Line){
-        String[] parts = Line.split(" ", 3);
+    public static String[] splitLine(String line){
+        String[] parts = line.split("\\s+", 3);
         if(parts.length <=2){
             return null;
         }
         return parts;
     }
+
     public static boolean hasKeyword(String message, String keyword){
         return message.toLowerCase().contains(keyword.toLowerCase());
+    }
+
+    public static String maskKeyword(String message, String keyword) {
+        return message.replaceAll("(?i)" + Pattern.quote(keyword),
+                "*".repeat(keyword.length()));
     }
 }
 
@@ -20,9 +27,10 @@ public class ChatFilter {
             "10:06 jay thanks! How about you?",
             "10:07 kirtan, Just wanted to check in.",
             "10:08 krupal, Let's catch up soon.",
-            "10:09 ansh, let's plan for this weekend.",
+            "10:09 ansh, let's plan for this stupid weekend.",
         };
-        java.util.Scanner sc= new java.util.Scanner(System.in);
+        Scanner sc= new Scanner(System.in);
+        System.out.println("Enter word to filter:");
         String input = sc.nextLine();
         
         int match =0;
@@ -35,11 +43,13 @@ public class ChatFilter {
             }
             if(ChatlogFilter.hasKeyword(parts[2], input)){
                 match++;
-                report.append(parts[0]).append(" ").append(parts[1]).append(" ; ").append(parts[2]).append("\n");
-            }
-            
-            System.out.println(parts[2]);
-}
-    System.out.println("Matche Found: " + match + " " + report);
+            String filtered = ChatlogFilter.maskKeyword(parts[2], input);
+            report.append(parts[0]).append(" ").append(parts[1]).append(" ")
+                    .append(filtered).append("\n");
+        }
+    }
+    System.out.println("Matches Found: " + match);
+    System.out.println(report);
+    sc.close();
 }
 }
