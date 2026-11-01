@@ -11,11 +11,22 @@ class InvalidQuantityException extends Exception {
     }
 }
 
+class ItemNotFoundException extends Exception {
+    public ItemNotFoundException(String message) {
+        super(message);
+    }
+}
+
 public class stock {
     int qty[] = {10, 20, 30};
     String item[]={"apple","banana","orange"};
 
-    public void issue(String item, int qty) throws OutOfStockException, InvalidQuantityException {
+    public void issue(String item, int qty) throws OutOfStockException,
+            InvalidQuantityException, ItemNotFoundException {
+
+        if (qty <= 0) {
+            throw new InvalidQuantityException("Quantity must be greater than zero");
+        }
 
         int index = -1;
         for(int i=0;i<this.item.length;i++){
@@ -25,7 +36,7 @@ public class stock {
             }
         }
         if(index == -1){
-            throw new InvalidQuantityException("Item not found");
+            throw new ItemNotFoundException("Item not found");
         }
         if(this.qty[index] < qty){
             throw new OutOfStockException("Not enough stock available");
@@ -47,6 +58,9 @@ public class stock {
             System.out.println(e.getMessage());
         }
         catch(InvalidQuantityException e){
+            System.out.println(e.getMessage());
+        }
+        catch(ItemNotFoundException e){
             System.out.println(e.getMessage());
         }
         catch(NumberFormatException e){
