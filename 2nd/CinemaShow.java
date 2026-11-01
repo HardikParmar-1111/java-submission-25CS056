@@ -15,7 +15,7 @@ public class CinemaShow {
     }
 
     public boolean book(int n) {
-        if (n <= seatsAvailable) {
+        if (n >= 0 && n <= seatsAvailable) {
             seatsAvailable -= n;
             totalBooked += n;
             return true;
@@ -24,6 +24,9 @@ public class CinemaShow {
     }
 
     public void cancel(int n) {
+        if (n <= 0) {
+            return;
+        }
         seatsAvailable += n;
         if (seatsAvailable > capacity) {
             seatsAvailable = capacity;

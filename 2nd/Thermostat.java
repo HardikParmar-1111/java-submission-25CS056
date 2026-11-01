@@ -24,7 +24,7 @@
         if (temperature < MAX) {
             temperature++;
         } else {
-            System.out.println("Already at maximum 30");
+            System.out.println("Already at maximum (30)");
         }
     }
 
@@ -32,7 +32,7 @@
         if (temperature > MIN) {
             temperature--;
         } else {
-            System.out.println("Already at minimum 16");
+            System.out.println("Already at minimum (16)");
         }
     }
 
